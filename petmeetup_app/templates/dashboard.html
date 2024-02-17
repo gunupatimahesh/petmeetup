@@ -1,0 +1,112 @@
+<!-- base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pet Meet Up{% endblock %}</title>
+    <!-- Add your common styles or include external CSS files here -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .header {
+            background-color: #333;
+            padding: 10px;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .dashboard-options {
+            display: flex;
+            gap: 20px;
+        }
+
+        .dashboard-option {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .available-meetup {
+            background-color: #4CAF50;
+        }
+
+        .need-meetup {
+            background-color: #f44336;
+        }
+
+        .day-caring {
+            background-color: #2196F3;
+        }
+
+        .login-logout {
+            text-decoration: none;
+            color: #fff; /* Change color as needed */
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>{% block header %}Pet Meet Up{% endblock %}</h1>
+        <div>
+            {% if user.is_authenticated %}
+                <a class="login-logout" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a class="login-logout" href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="dashboard-options">
+            <a href="{% url 'pet_meetup_list_view' %}?need_day_care=true" class="dashboard-option day-caring">
+                <h2>Day Caring</h2>
+                <!-- Add your content for Day Caring option -->
+                <!-- For example, link to a specific page or perform an action -->
+            </a>
+
+            <a href="{% url 'pet_meetup_list_view' %}?available_for_meet_up=False" class="dashboard-option need-meetup">
+                <h2>Need Meetup</h2>
+                <!-- Add your content for Need Meetup option -->
+                <!-- For example, link to a specific page or perform an action -->
+            </a>
+
+            <a href="{% url 'pet_meetup_list_view' %}?available_for_meet_up=True" class="dashboard-option available-meetup">
+                <h2>Available for Meetup</h2>
+                <!-- Add your content for Available for Meetup option -->
+                <!-- For example, link to a specific page or perform an action -->
+            </a>
+
+            <a href="{% url 'api_post_handler' %}" class="dashboard-option available-meetup">
+                <h2>Register Your Pet</h2>
+                <!-- Add your content for Available for Meetup option -->
+                <!-- For example, link to a specific page or perform an action -->
+            </a>
+        </div>
+    </div>
+
+    {% block content %}{% endblock %}
+
+</body>
+</html>

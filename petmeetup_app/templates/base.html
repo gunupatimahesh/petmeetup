@@ -1,0 +1,89 @@
+<!-- base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pet Meet Up{% endblock %}</title>
+    <!-- Add your common styles or include external CSS files here -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Django App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .header {
+            background-color: #333;
+            padding: 10px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .dashboard-option {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .available-meetup {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        .need-meetup {
+            background-color: #f44336;
+            color: #fff;
+        }
+
+        .day-caring {
+            background-color: #2196F3;
+            color: #fff;
+        }
+
+        .login-logout {
+            text-decoration: none;
+            color: #fff;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1><a href="{% url 'dashboard' %}" style="text-decoration: none; color: #fff;">Pet Meet Up</a></h1>
+        <div>
+            {% if user.is_authenticated %}
+                <a class="login-logout" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a class="login-logout" href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% block content %}{% endblock %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-ggRxx0iMXtFO51KtgoVfFqgS9SAnxu9K3gY/Kf+5z33bF/XIrclDzqms3bOMstA3" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!-- pet_details.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Pet Details{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Add these styles for the details page */
+    .details-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+    .pet-details {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .pet-details img {
+        max-width: 100%;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .pet-details h3 {
+        color: #333;
+    }
+
+    .pet-details ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .pet-details li {
+        margin-bottom: 10px;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #4CAF50;
+        font-weight: bold;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="details-container">
+    <h2>Pet Details</h2>
+
+    <!-- Pet Meetup Details -->
+    <div class="pet-details">
+        {% if pet_meetup %}
+            <img src="{{ pet_meetup.pet_image.url }}" alt="{{ pet_meetup.pet_type.name }} Image">
+            <h3>{{ pet_meetup.pet_type.name }} - {{ pet_meetup.pet_breed.name }}</h3>
+
+            <ul>
+                <li><strong>Age:</strong> {{ pet_meetup.age }}</li>
+                <li><strong>Available for Meetup:</strong> {% if pet_meetup.available_for_meet_up %}Yes{% else %}No{% endif %}</li>
+                <li><strong>Need Meetup:</strong> {% if pet_meetup.need_meet_up %}Yes{% else %}No{% endif %}</li>
+                <li><strong>Need Day Care:</strong> {% if pet_meetup.need_day_care %}Yes{% else %}No{% endif %}</li>
+                <li><strong>Description:</strong> {{ pet_meetup.pet_description }}</li>
+                <!-- Add more details as needed -->
+            </ul>
+        {% endif %}
+    </div>
+
+    <!-- Pet Details -->
+    <div class="pet-details">
+        <h3>{{ pet.pet_name }} Details</h3>
+
+        <p><strong>Pet Type:</strong> {{ pet.pet_type.name }}</p>
+        <p><strong>Pet Breed:</strong> {{ pet.pet_breed.name }}</p>
+        <p><strong>Pet Name:</strong> {{ pet.pet_name }}</p>
+        <p><strong>Age:</strong> {{ pet.age }}</p>
+        <p><strong>Available for Meetup:</strong> {% if pet.available_for_meet_up %}Yes{% else %}No{% endif %}</p>
+        <p><strong>Need Meetup:</strong> {% if pet.need_meet_up %}Yes{% else %}No{% endif %}</p>
+        <p><strong>Need Day Care:</strong> {% if pet.need_day_care %}Yes{% else %}No{% endif %}</p>
+        <p><strong>Pet Description:</strong> {{ pet.pet_description }}</p>
+
+        <!-- Additional Attributes -->
+        <p><strong>Size:</strong> {{ pet.size }}</p>
+        <p><strong>Gender:</strong> {{ pet.gender }}</p>
+        <p><strong>Coat Length:</strong> {{ pet.coat_length }}</p>
+        <p><strong>Color:</strong> {{ pet.color }}</p>
+        <p><strong>Good With:</strong> {{ pet.good_with }}</p>
+        <p><strong>Care and Behavior:</strong> {{ pet.care_and_behavior }}</p>
+        <p><strong>Days of Pet Finder:</strong> {{ pet.days_of_pet_finder }}</p>
+        <p><strong>Shelter or Rescue:</strong> {{ pet.shelter_or_rescue }}</p>
+
+        {% if pet.pet_image %}
+            <img src="{{ pet.pet_image.url }}" alt="{{ pet.pet_name }} Image">
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

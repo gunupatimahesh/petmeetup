@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    /* Custom Styles */
+    body {
+      background-color: #cdeccd; /* Misty Rose background color for pets */
+    }
+
+    form.my-form {
+      background-color: #ffe4e1; /* White background color for the form */
+      padding: 20px;
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle elevation effect */
+      max-width: 600px; /* Set the maximum width of the form */
+      margin: 0 auto; /* Center the form horizontally */
+    }
+
+    button {
+      background-color: #007bff; /* Bootstrap primary color for the submit button */
+      color: #ffffff; /* White text color */
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Add more custom styles as needed */
+  </style>
+
+<form method="post" action="{% url 'api_post_handler' %}" class="my-form needs-validation" novalidate enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
