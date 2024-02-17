@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-r6_7lpkymb8km$7ey8^!-3e220q#@du8#6obh81k*i*v2mfaut'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['https://petmeetup.azurewebsites.net/','169.254.129.3', '*', 'petmeetup.azurewebsites.net']
 
