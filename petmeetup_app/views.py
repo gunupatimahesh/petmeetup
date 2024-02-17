@@ -27,6 +27,7 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
+
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -39,9 +40,11 @@ def user_login(request):
             messages.error(request, 'Invalid login credentials')
     return render(request, 'login.html')
 
+
 def user_logout(request):
     logout(request)
     return redirect('login')  # Change 'login' to the name of your login view
+
 
 @api_view(['GET', 'POST'])
 def pet_meetup_list(request):
