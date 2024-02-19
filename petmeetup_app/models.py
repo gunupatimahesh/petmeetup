@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import User
 from django.db import models
 
 from petmeetup_app.utils import crop_square_image
@@ -20,6 +20,7 @@ class PetBreed(models.Model):
 
 
 class PetMeetUp(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     pet_type = models.ForeignKey(PetType, on_delete=models.CASCADE)
     pet_breed = models.ForeignKey(PetBreed, on_delete=models.CASCADE)
     pet_name = models.CharField(max_length=50)
@@ -27,6 +28,7 @@ class PetMeetUp(models.Model):
     available_for_meet_up = models.BooleanField(default=False)
     need_meet_up = models.BooleanField(default=False)
     need_day_care = models.BooleanField(default=False)
+    day_care_available = models.BooleanField(default=False)
     pet_description = models.TextField()
 
     # Additional Attributes
@@ -58,3 +60,27 @@ class PetMeetUp(models.Model):
 
     def __str__(self):
         return f"{self.pet_name} - {self.pet_type.name} - {self.pet_breed.name}"
+
+
+class PetAvailableForDayCare(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    pet_type = models.ForeignKey(PetType, on_delete=models.CASCADE)
+    pet_breed = models.ForeignKey(PetBreed, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.get_pet_type_display()} - {self.get_breed_display()} for {self.user.username}"
+
+
+class PetNeedDayCare(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    pet_type = models.ForeignKey(PetType, on_delete=models.CASCADE)
+    pet_breed = models.ForeignKey(PetBreed, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    age = models.PositiveIntegerField()
+    gender = models.CharField(max_length=10)
+    size = models.CharField(max_length=10)
+    vaccination_status = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.get_pet_type_display()} - {self.get_breed_display()} - {self.name} for {self.user.username}"

@@ -87,9 +87,10 @@
         </ul>
     {% endif %}
 
-    {% if day_care_meetups %}
-        <h3>Day Caring</h3>
-        <ul>
+    {% if day_care_meetups or day_care_availability %}
+    <h3>Day Caring</h3>
+    <ul>
+        {% if day_care_meetups %}
             {% for meetup in day_care_meetups %}
                 <li>
                     <a href="{% url 'pet_details' meetup.id %}">
@@ -100,8 +101,25 @@
                     </a>
                 </li>
             {% endfor %}
-        </ul>
+        {% endif %}
+
+        {% if day_care_availability %}
+            <!-- Additional content for day_care_available scenario -->
+            <!-- You can customize this part based on your requirements -->
+            {% for available_meetup in day_care_availability %}
+                <li>
+                    <a href="{% url 'pet_details' available_meetup.id %}">
+                        <strong>{{ available_meetup.pet_type.name }}</strong> - {{ available_meetup.pet_breed.name }}
+                        {% if available_meetup.pet_image %}
+                            <img src="{{ available_meetup.pet_image.url }}" alt="{{ available_meetup.pet_type.name }} Image">
+                        {% endif %}
+                    </a>
+                </li>
+            {% endfor %}
+        {% endif %}
+    </ul>
     {% endif %}
+
 
     {% if not available_meetups and not need_meetups and not day_care_meetups %}
         <p>No meetups found.</p>

@@ -59,6 +59,7 @@ def pet_meetup_list(request):
         age_max = params.get('age_max', None)
         available_for_meet_up = params.get('available_for_meet_up', None)
         need_day_care = params.get('need_day_care', None)
+        day_care_available = params.get('day_care_available', None)
 
         # Build a queryset based on the parameters
         queryset = PetMeetUp.objects.all()
@@ -83,6 +84,10 @@ def pet_meetup_list(request):
             # Handle boolean parameter using QueryDict
             need_day_care = params.get('need_day_care', '').lower() == 'true'
             queryset = queryset.filter(need_day_care=need_day_care)
+        if day_care_available is not None:
+            # Handle boolean parameter using QueryDict
+            need_day_care = params.get('day_care_available', '').lower() == 'true'
+            queryset = queryset.filter(day_care_available=day_care_available)
         serializer = PetMeetUpSerializer(queryset, many=True)
         return Response(serializer.data)
         # Add more filters as needed based on other parameters
@@ -133,6 +138,7 @@ def pet_meetup_list_view(request):
         available_for_meet_up = params.get('available_for_meet_up', None)
         need_meetup = params.get('need_meetup', None)
         need_day_care = params.get('need_day_care', None)
+        day_care_available = params.get('day_care_available', None)
 
         queryset = PetMeetUp.objects.all()
 
@@ -151,6 +157,7 @@ def pet_meetup_list_view(request):
         available_meetups = []
         need_meetups = []
         day_care_meetups = []
+        day_care_availability = []
 
         for meetup in queryset:
             if available_for_meet_up is not None and meetup.available_for_meet_up == (
@@ -158,13 +165,16 @@ def pet_meetup_list_view(request):
                 available_meetups.append(meetup)
             elif need_meetup is not None and meetup.need_meetup == (need_meetup.lower() == 'true'):
                 need_meetups.append(meetup)
+            elif day_care_available is not None and meetup.day_care_available == (day_care_available.lower() == 'true'):
+                day_care_availability.append(meetup)
             elif need_day_care is not None and meetup.need_day_care == (need_day_care.lower() == 'true'):
                 day_care_meetups.append(meetup)
-
+        print('day_care_available', day_care_availability)
         return render(request, 'pet_meetup_list.html', {
             'available_meetups': available_meetups,
             'need_meetups': need_meetups,
             'day_care_meetups': day_care_meetups,
+            'day_care_availability': day_care_availability,
         })
 
     # Handle other HTTP methods as needed
