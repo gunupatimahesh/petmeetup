@@ -11,86 +11,86 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f8f8; /* Very light gray background */
-        }
+     <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8; /* Very light gray background */
+    }
 
-        .header {
-            background-color: #333;
-            padding: 15px;
-            color: #fff;
-            text-align: center;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .header {
+        background-color: #333;
+        padding: 15px;
+        color: #fff;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-        .user-actions {
-            margin-right: 20px;
-        }
+    .dashboard-container {
+        padding: 20px;
+    }
 
-        .dashboard-container {
-            padding: 20px;
-            text-align: center;
-        }
+    .dashboard-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
 
-        .dashboard-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
+    .dashboard-option {
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        text-decoration: none;
+        color: #333; /* Dark gray text color for normal links */
+        background-color: #f0f0f0; /* Very light gray default background color */
+        width: 100%; /* Adjust width as needed for responsiveness */
+    }
 
-        .dashboard-option {
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            color: #333; /* Dark gray text color for normal links */
-            background-color: #f0f0f0; /* Very light gray default background color */
-            width: calc(30% - 20px); /* Adjust width as needed for responsiveness */
-            margin-bottom: 20px;
-        }
+    .dashboard-option:hover {
+        background-color: #d4d4d4; /* Lighter gray background color on hover */
+    }
 
-        .dashboard-option:hover {
-            background-color: #d4d4d4; /* Lighter gray background color on hover */
-        }
+    .available-meetup {
+        background-color: #b2e2b2; /* Very light green for available meetup */
+    }
 
-        .available-meetup {
-            background-color: #b2e2b2; /* Very light green for available meetup */
-        }
+    .need-meetup {
+        background-color: #f0b2b2; /* Very light red for need meetup */
+    }
 
-        .need-meetup {
-            background-color: #f0b2b2; /* Very light red for need meetup */
-        }
+    .day-caring {
+        background-color: #b2b2e2; /* Very light blue for day caring */
+    }
 
-        .day-caring {
-            background-color: #b2b2e2; /* Very light blue for day caring */
-        }
+    .login-logout {
+        text-decoration: none;
+        color: #333; /* Dark gray text color for login/logout links */
+        margin-right: 20px;
+    }
 
-        #dayCaringOptions {
-            display: none; /* Initially hide day caring options */
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
+    #dayCaringOptions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
 
-        #dayCaringOptions .dashboard-option {
-            width: calc(40% - 20px); /* Adjust width for two columns with gap */
-        }
-    </style>
+    #dayCaringOptions .dashboard-option {
+        width: calc(50% - 20px); /* Adjust width for two columns with gap */
+    }
+</style>
 </head>
 
 <body>
 
     <div class="header">
         <h1>{% block header %}Pet Meet Up{% endblock %}</h1>
-        <div class="user-actions">
+        <div>
             {% if user.is_authenticated %}
             <a class="login-logout" href="{% url 'logout' %}">Logout</a>
             {% else %}
@@ -107,13 +107,15 @@
             </a>
 
             <!-- Additional options for Day Caring -->
-            <div id="dayCaringOptions">
-                <a href="{% url 'pet_meetup_list_view' %}?need_day_care=true">
-                    <h2 style="background-color: #f0b2b2;">Day Care Needed</h2>
+            <div id="dayCaringOptions" >
+                <a href="{% url 'pet_meetup_list_view' %}?need_day_care=true"
+                    class="dashboard-option day-caring">
+                    <h2>Day Care Needed</h2>
                 </a>
 
-                <a href="{% url 'pet_meetup_list_view' %}?day_care_available=true">
-                    <h2 style="background-color: #b2e2b2;">Day Care Available</h2>
+                <a href="{% url 'pet_meetup_list_view' %}?day_care_available=true"
+                    class="dashboard-option day-caring">
+                    <h2>Day Care Available</h2>
                 </a>
             </div>
 
