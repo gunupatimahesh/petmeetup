@@ -17,6 +17,7 @@
 
     h3 {
         text-align: center;
+        margin-bottom: 20px;
     }
 
     ul {
@@ -31,11 +32,21 @@
         margin: 10px;
         text-align: center;
         width: 30%;  /* Adjust as needed */
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    li:hover {
+        transform: scale(1.05);
     }
 
     a {
         text-decoration: none;
         color: #333;
+        display: block;
+        padding: 10px;
     }
 
     strong {
@@ -53,7 +64,32 @@
         text-align: center;
         color: #555;
     }
+
+    /* Styling for the filter dropdown */
+    .breed-filter {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    select {
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
 </style>
+<div class="breed-filter">
+    <label for="breedFilter">Filter by Breed:</label>
+    <select id="breedFilter">
+        <option value="">All Breeds</option>
+        {% for breed in all_breeds %}
+            <option value="{{ breed.name }}">{{ breed.name }}</option>
+        {% endfor %}
+    </select>
+</div>
 <div class="meetup-list">
     {% if available_meetups %}
         <h3>Available for Meetup</h3>
@@ -125,5 +161,21 @@
         <p>No meetups found.</p>
     {% endif %}
 </div>
+<script>
+    document.getElementById('breedFilter').addEventListener('change', function () {
+        var selectedBreedId = this.value;
+        var meetups = document.querySelectorAll('.meetup-list ul li');
+
+        meetups.forEach(function (meetup) {
+            var meetupBreed = meetup.querySelector('a').textContent.split(' - ')[1];
+
+            if (selectedBreedId === '' || selectedBreedId.trim() === meetupBreed.trim()) {
+                meetup.style.display = 'block';
+            } else {
+                meetup.style.display = 'none';
+            }
+        });
+    });
+</script>
 
 {% endblock %}

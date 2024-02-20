@@ -141,6 +141,7 @@ def pet_meetup_list_view(request):
         day_care_available = params.get('day_care_available', None)
 
         queryset = PetMeetUp.objects.all()
+        all_breeds = PetBreed.objects.all()
 
         if pet_type:
             queryset = queryset.filter(pet_type__name=pet_type)
@@ -175,6 +176,7 @@ def pet_meetup_list_view(request):
             'need_meetups': need_meetups,
             'day_care_meetups': day_care_meetups,
             'day_care_availability': day_care_availability,
+            'all_breeds': all_breeds
         })
 
     # Handle other HTTP methods as needed
