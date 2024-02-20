@@ -132,8 +132,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#
+# CORS_ALLOWED_ORIGINS = [
+#     "https://petmeetup.azurewebsites.net",
+#     # Add other allowed origins if needed
+# ]
 
-CORS_ALLOWED_ORIGINS = [
-    "https://petmeetup.azurewebsites.net",
-    # Add other allowed origins if needed
-]
+AUTH_USER_MODEL = 'petmeetup_app.CustomUser'

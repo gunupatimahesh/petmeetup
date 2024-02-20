@@ -3,6 +3,49 @@ from django.db import models
 
 from petmeetup_app.utils import crop_square_image
 
+# models.py
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.db import models
+
+
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, mobile, password=None, **extra_fields):
+        if not email:
+            raise ValueError('The Email field must be set')
+        if not mobile:
+            raise ValueError('The Mobile field must be set')
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, mobile=mobile, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, mobile, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        return self.create_user(email, mobile, password, **extra_fields)
+
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email = models.EmailField(unique=True)
+    mobile = models.CharField(max_length=15, unique=True)
+    address = models.TextField()
+
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['mobile']
+
+    def __str__(self):
+        return self.email
+
 
 class PetType(models.Model):
     name = models.CharField(max_length=50)
@@ -20,7 +63,7 @@ class PetBreed(models.Model):
 
 
 class PetMeetUp(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     pet_type = models.ForeignKey(PetType, on_delete=models.CASCADE)
     pet_breed = models.ForeignKey(PetBreed, on_delete=models.CASCADE)
     pet_name = models.CharField(max_length=50)
@@ -63,7 +106,7 @@ class PetMeetUp(models.Model):
 
 
 class PetAvailableForDayCare(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     pet_type = models.ForeignKey(PetType, on_delete=models.CASCADE)
     pet_breed = models.ForeignKey(PetBreed, on_delete=models.CASCADE)
 
@@ -72,7 +115,7 @@ class PetAvailableForDayCare(models.Model):
 
 
 class PetNeedDayCare(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     pet_type = models.ForeignKey(PetType, on_delete=models.CASCADE)
     pet_breed = models.ForeignKey(PetBreed, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)

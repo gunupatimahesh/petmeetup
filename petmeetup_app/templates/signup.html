@@ -1,15 +1,53 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
-  <div class="container">
-    <div class="card">
+  <div class="container mt-10 mb-8" style="margin-top: 8rem;">
+    <div class="card mx-auto" style="max-width: 400px;">
       <div class="card-body">
         <h2 class="card-title text-center mb-4">Sign Up</h2>
-        <form method="post" action="{% url 'signup' %}">
+        <form method="post" action="{% url 'signup' %}" class="needs-validation" novalidate>
           {% csrf_token %}
-          {{ form.as_p }}
+
+          <!-- Render each form field individually with Bootstrap styles -->
+          <div class="form-group">
+            <label for="{{ form.first_name.id_for_label }}">First Name:</label>
+            {{ form.first_name }}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.last_name.id_for_label }}">Last Name:</label>
+            {{ form.last_name }}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email }}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.mobile.id_for_label }}">Mobile:</label>
+            {{ form.mobile }}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.address.id_for_label }}">Address:</label>
+            {{ form.address }}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.password1.id_for_label }}">Password:</label>
+            {{ form.password1 }}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+            {{ form.password2 }}
+          </div>
+
           <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
         </form>
+
         <p class="text-center mt-3">Already have an account? <a href="{% url 'login' %}">Login</a></p>
       </div>
     </div>

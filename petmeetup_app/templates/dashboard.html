@@ -101,7 +101,7 @@
             </a>
 
             <!-- Additional options for Day Caring -->
-            <div id="dayCaringOptions">
+            <div id="dayCaringOptions" >
                 <a href="{% url 'pet_meetup_list_view' %}?need_day_care=true"
                     class="dashboard-option day-caring">
                     <h2>Day Care Needed</h2>
@@ -113,7 +113,7 @@
                 </a>
             </div>
 
-            <a href="{% url 'pet_meetup_list_view' %}?available_for_meet_up=False" class="dashboard-option need-meetup">
+            <a href="{% url 'pet_meetup_list_view' %}?need_meet_up=True" class="dashboard-option need-meetup">
                 <h2>Need Meetup</h2>
             </a>
 

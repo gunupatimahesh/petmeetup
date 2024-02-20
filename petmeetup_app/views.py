@@ -1,30 +1,25 @@
-import json
-
 from django.contrib import messages
-from django.http import QueryDict, HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
 from django.http import QueryDict, HttpResponse
 from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from petmeetup_app.forms import PetMeetUpForm
+from petmeetup_app.forms import PetMeetUpForm, CustomUserCreationForm
 from petmeetup_app.models import PetMeetUp, PetType, PetBreed
 from petmeetup_app.serializers import PetMeetUpSerializer
 
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}')
             return redirect('login')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
 
@@ -60,6 +55,7 @@ def pet_meetup_list(request):
         available_for_meet_up = params.get('available_for_meet_up', None)
         need_day_care = params.get('need_day_care', None)
         day_care_available = params.get('day_care_available', None)
+        need_meet_up = params.get('need_meet_up', None)
 
         # Build a queryset based on the parameters
         queryset = PetMeetUp.objects.all()
@@ -80,6 +76,10 @@ def pet_meetup_list(request):
             # Handle boolean parameter using QueryDict
             available_for_meet = params.get('available_for_meet', '').lower() == 'true'
             queryset = queryset.filter(available_for_meet_up=available_for_meet_up)
+        if need_meet_up is not None:
+            # Handle boolean parameter using QueryDict
+            available_for_meet = params.get('need_meetup', '').lower() == 'true'
+            queryset = queryset.filter(need_meet_up=need_meet_up)
         if need_day_care is not None:
             # Handle boolean parameter using QueryDict
             need_day_care = params.get('need_day_care', '').lower() == 'true'
@@ -136,7 +136,7 @@ def pet_meetup_list_view(request):
         age_min = params.get('age_min', None)
         age_max = params.get('age_max', None)
         available_for_meet_up = params.get('available_for_meet_up', None)
-        need_meetup = params.get('need_meetup', None)
+        need_meet_up = params.get('need_meet_up', None)
         need_day_care = params.get('need_day_care', None)
         day_care_available = params.get('day_care_available', None)
 
@@ -163,7 +163,7 @@ def pet_meetup_list_view(request):
             if available_for_meet_up is not None and meetup.available_for_meet_up == (
                     available_for_meet_up.lower() == 'true'):
                 available_meetups.append(meetup)
-            elif need_meetup is not None and meetup.need_meetup == (need_meetup.lower() == 'true'):
+            elif need_meet_up is not None and meetup.need_meet_up == (need_meet_up.lower() == 'true'):
                 need_meetups.append(meetup)
             elif day_care_available is not None and meetup.day_care_available == (day_care_available.lower() == 'true'):
                 day_care_availability.append(meetup)
@@ -202,3 +202,4 @@ def api_post_handler(request):
         form = PetMeetUpForm()
 
     return render(request, 'register_pet.html', {'form': form})
+
