@@ -12,72 +12,78 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
      <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f2f2f2;
-        }
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8; /* Very light gray background */
+    }
 
-        .header {
-            background-color: #333;
-            padding: 10px;
-            color: #fff;
-            text-align: center;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .header {
+        background-color: #e0e0e0; /* Very light gray header background */
+        padding: 10px;
+        color: #333; /* Dark gray header text color */
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-        .dashboard-container {
-            padding: 20px;
-        }
+    .dashboard-container {
+        padding: 20px;
+    }
 
-        .dashboard-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
+    .dashboard-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
 
-        .dashboard-option {
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            color: #fff;
-            width: 100%; /* Adjust width as needed for responsiveness */
-        }
+    .dashboard-option {
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        text-decoration: none;
+        color: #333; /* Dark gray text color for normal links */
+        background-color: #f0f0f0; /* Very light gray default background color */
+        width: 100%; /* Adjust width as needed for responsiveness */
+    }
 
-        .available-meetup {
-            background-color: #4CAF50;
-        }
+    .dashboard-option:hover {
+        background-color: #d4d4d4; /* Lighter gray background color on hover */
+    }
 
-        .need-meetup {
-            background-color: #f44336;
-        }
+    .available-meetup {
+        background-color: #b2e2b2; /* Very light green for available meetup */
+    }
 
-        .day-caring {
-            background-color: #2196F3;
-        }
+    .need-meetup {
+        background-color: #f0b2b2; /* Very light red for need meetup */
+    }
 
-        .login-logout {
-            text-decoration: none;
-            color: #fff;
-            margin-right: 20px;
-        }
-        #dayCaringOptions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
+    .day-caring {
+        background-color: #b2b2e2; /* Very light blue for day caring */
+    }
 
-        #dayCaringOptions .dashboard-option {
-            width: calc(50% - 20px); /* Adjust width for two columns with gap */
-        }
-    </style>
+    .login-logout {
+        text-decoration: none;
+        color: #333; /* Dark gray text color for login/logout links */
+        margin-right: 20px;
+    }
+
+    #dayCaringOptions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    #dayCaringOptions .dashboard-option {
+        width: calc(50% - 20px); /* Adjust width for two columns with gap */
+    }
+</style>
 </head>
 
 <body>
