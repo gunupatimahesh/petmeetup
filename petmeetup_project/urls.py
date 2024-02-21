@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from petmeetup_app.views import signup, user_login, user_logout
+from petmeetup_app.views import signup, user_login, user_logout, dashboard_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +27,7 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('login/', user_login, name='login'),
     path('logout/', user_logout, name='logout'),
+    path('', dashboard_view, name='dashboard'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

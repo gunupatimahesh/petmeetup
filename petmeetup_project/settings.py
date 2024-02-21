@@ -139,4 +139,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # ]
 
 AUTH_USER_MODEL = 'petmeetup_app.CustomUser'
-CSRF_COOKIE_SECURE = False
+LOGIN_URL = 'login'
