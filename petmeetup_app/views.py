@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import QueryDict, HttpResponse
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -9,7 +10,7 @@ from petmeetup_app.forms import PetMeetUpForm, CustomUserCreationForm
 from petmeetup_app.models import PetMeetUp, PetType, PetBreed
 from petmeetup_app.serializers import PetMeetUpSerializer
 
-
+@csrf_exempt
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -23,6 +24,7 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
+@csrf_exempt
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -42,6 +44,7 @@ def user_logout(request):
 
 
 @api_view(['GET', 'POST'])
+@csrf_exempt
 def pet_meetup_list(request):
     # Use QueryDict for query parameters
     if request.method == 'GET':
@@ -193,7 +196,7 @@ def pet_details(request, pet_id):
         # Handle the case where the pet with the given ID doesn't exist
         return render(request, 'pet_not_found.html')
 
-
+@csrf_exempt
 def api_post_handler(request):
     if request.method == 'POST':
         form = PetMeetUpForm(request.POST)
@@ -204,4 +207,3 @@ def api_post_handler(request):
         form = PetMeetUpForm()
 
     return render(request, 'register_pet.html', {'form': form})
-
