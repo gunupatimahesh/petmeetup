@@ -17,4 +17,5 @@ class PetMeetUpForm(forms.ModelForm):
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ['first_name', 'last_name', 'email', 'mobile', 'address', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'email', 'mobile', 'address', 'proof_id_card_number',
+                  'photo', 'password1', 'password2', 'age']

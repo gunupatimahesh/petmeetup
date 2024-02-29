@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-  <div class="container mt-10 mb-8" style="margin-top: 8rem;">
+  <div class="container mt-10 mb-8" style="margin-top: 12rem;">
     <div class="card mx-auto" style="max-width: 400px;">
       <div class="card-body">
         <h2 class="card-title text-center mb-4">Sign Up</h2>
@@ -33,6 +33,21 @@
           <div class="form-group">
             <label for="{{ form.address.id_for_label }}">Address:</label>
             {{ form.address }}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.proof_id_card_number.id_for_label }}">Govt ID Card Number:</label>
+            {{ form.proof_id_card_number }}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.photo.id_for_label }}">Photo:</label>
+            {{ form.photo }}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.age.id_for_label }}">Age:</label>
+            {{ form.age }}
           </div>
 
           <div class="form-group">

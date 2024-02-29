@@ -205,9 +205,15 @@ def api_post_handler(request):
     if request.method == 'POST':
         form = PetMeetUpForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('dashboard')  # Redirect to a success page
+            # Check if the user is authenticated before saving the form
+            if request.user.is_authenticated:
+                form.instance.user = request.user  # Assign the logged-in user to the form
+                form.save()
+                return redirect('dashboard')  # Redirect to a success page
+            else:
+                # Optionally, you can handle the case where the user is not authenticated
+                return render(request, 'login_required.html')  # Replace with your desired template
     else:
         form = PetMeetUpForm()
 
-    return render(request, 'register_pet.html', {'form': form})
+    return render(request, 'register_pet.html', {'form': form,'form1':CustomUserCreationForm()})

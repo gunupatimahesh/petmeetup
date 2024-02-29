@@ -33,7 +33,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=30)
     email = models.EmailField(unique=True)
     mobile = models.CharField(max_length=15, unique=True)
+    age = models.PositiveIntegerField()
     address = models.TextField()
+    proof_id_card_number = models.CharField(max_length=15)
+    photo = models.ImageField(upload_to='user_images/', null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -44,7 +47,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['mobile']
 
     def __str__(self):
-        return self.email
+        return self.first_name + ' ' + self.last_name
 
 
 class PetType(models.Model):
@@ -85,6 +88,7 @@ class PetMeetUp(models.Model):
     days_of_pet_finder = models.PositiveIntegerField(blank=True, null=True)
     shelter_or_rescue = models.CharField(max_length=100, blank=True, null=True)
     pet_image = models.ImageField(upload_to='pet_images/', null=True, blank=True)
+    breed_certificate = models.ImageField(upload_to='pet_certificates', null=True, blank=True)
 
     # ... other fields
 
